@@ -14,7 +14,8 @@ import android.widget.Toast;
 
 import com.google.gson.reflect.TypeToken;
 import com.john_yim.dormitory.R;
-import com.john_yim.dormitory.activity.WelcomeActivity;
+import com.john_yim.dormitory.constant.AcitivtyCode;
+import com.john_yim.dormitory.constant.Authentication;
 import com.john_yim.dormitory.constant.Constant;
 import com.john_yim.dormitory.constant.Gender;
 import com.john_yim.dormitory.constant.PropertyName;
@@ -104,8 +105,15 @@ public class DorAdminRegisterActivity extends AppCompatActivity implements View.
                                 new TypeToken<ResponseResult<String>>(){}.getType());
                         Toast.makeText(context, result.getMessage(), Toast.LENGTH_SHORT).show();
                         if (result.getCode() == ResultType.SUCCESS.getCode()) {
-                            Intent intent = new Intent(context, WelcomeActivity.class);
-                            startActivity(intent);
+                            Bundle bundle = new Bundle();
+                            Intent intent = new Intent();
+                            bundle.putString(PropertyName.ID.name(), idText.getText().toString());
+                            bundle.putString(PropertyName.NAME.name(), nameText.getText().toString());
+                            bundle.putString(PropertyName.PASSWORD.name(), passwordText.getText().toString());
+                            bundle.putSerializable(PropertyName.AUTH.name(), Authentication.DORMITORY_ADMINISTRATOR);
+                            intent.putExtras(bundle);
+                            setResult(AcitivtyCode.REGISTER.ordinal(), intent);
+                            finish();
                         }
                     }
                 }

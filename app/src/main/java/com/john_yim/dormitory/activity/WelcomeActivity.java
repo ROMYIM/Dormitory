@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.google.gson.reflect.TypeToken;
 import com.john_yim.dormitory.R;
 import com.john_yim.dormitory.activity.dorAdmin.DorAdminMainActivity;
+import com.john_yim.dormitory.activity.dorAdmin.DorAdminRegisterActivity;
 import com.john_yim.dormitory.activity.student.StudentMainActivity;
 import com.john_yim.dormitory.activity.student.StudentRegisterActivity;
 import com.john_yim.dormitory.constant.AcitivtyCode;
@@ -211,17 +212,18 @@ public class WelcomeActivity extends AppCompatActivity implements RadioGroup.OnC
     }
 
     private void registerLinkClick() {
-        Bundle bundle = new Bundle();
+        Intent intent = new Intent();
         switch (authGroup.getCheckedRadioButtonId()) {
             case R.id.studentRadioBtn:
-                Intent intent = new Intent(context, StudentRegisterActivity.class);
+                intent.setClass(context, StudentRegisterActivity.class);
                 startActivityForResult(intent, AcitivtyCode.WELCOME.ordinal());
                 break;
             case R.id.dorAdminRadioBtn:
-                bundle.putSerializable(PropertyName.AUTH.name(), Authentication.DORMITORY_ADMINISTRATOR);
+                intent.setClass(context, DorAdminRegisterActivity.class);
+                startActivityForResult(intent, AcitivtyCode.WELCOME.ordinal());
                 break;
             case R.id.adminRadioBtn:
-                bundle.putSerializable(PropertyName.AUTH.name(), Authentication.ADMINISTRATOR);
+
                 break;
             default:
                 Toast.makeText(context, "请选择身份", Toast.LENGTH_SHORT).show();
