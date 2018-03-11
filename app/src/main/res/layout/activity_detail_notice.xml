@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.john_yim.dormitory.activity.InfoDetailActivity">
+
+    <TextView
+        style="@style/DetailPlane"
+        android:id="@+id/noticePlaneId"
+        android:text="编号:"/>
+
+    <TextView
+        style="@style/DetailText"
+        android:layout_toRightOf="@id/noticePlaneId"
+        android:id="@+id/noticeInfoId"/>
+
+    <TextView
+        style="@style/DetailPlane"
+        android:id="@+id/noticePlaneSendDate"
+        android:layout_below="@id/noticePlaneId"
+        android:text="日期:"/>
+
+    <TextView
+        style="@style/DetailText"
+        android:layout_toRightOf="@id/noticePlaneSendDate"
+        android:layout_below="@id/noticeInfoId"
+        android:id="@+id/noticeInfoSendDate"/>
+
+    <TextView
+        style="@style/DetailPlane"
+        android:layout_below="@id/noticePlaneSendDate"
+        android:text="内容:"
+        android:id="@+id/noticePlaneText"/>
+
+    <ScrollView
+        style="@style/ScrollStyle"
+        android:layout_below="@id/noticePlaneText">
+
+        <TextView
+            style="@style/DetailContent"
+            android:id="@+id/noticeInfoContent"/>
+
+    </ScrollView>
+</RelativeLayout>

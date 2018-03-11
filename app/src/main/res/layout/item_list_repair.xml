@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:gravity="center"
+            android:layout_alignParentLeft="true"
+            android:id="@+id/repairId"
+            android:text="repairId"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:gravity="center"
+            android:layout_toRightOf="@id/repairId"
+            android:id="@+id/repairSendDate"
+            android:text="repairSendDate"
+            android:paddingLeft="20dp" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="15dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/colorBottomBar"
+            android:layout_toRightOf="@id/repairId"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="维修类型："
+            android:gravity="center"
+            android:layout_below="@id/repairId"
+            android:layout_alignParentLeft="true"
+            android:id="@+id/repairType" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="15dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/colorBottomBar"
+            android:layout_toRightOf="@id/repairType"
+            android:layout_below="@id/repairId"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_below="@id/repairSendDate"
+            android:layout_toRightOf="@id/repairType"
+            android:id="@+id/repairState"
+            android:gravity="center"
+            android:paddingLeft="20dp"
+            android:text="维修状态："/>
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorBottomBar"/>
+
+    <TextView
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:textColor="@color/colorBlack"
+        android:textSize="17dp"
+        android:id="@+id/repairText"
+        android:lineSpacingExtra="3dp"
+        android:letterSpacing="0.2"
+        android:text="维修维修维修维修维修维修维修维修维修维修维修维修维修维修维修维修维修维修维修维修维修维修维修维修维修维修维修维修维修维修维修维修维修"/>
+
+</LinearLayout>

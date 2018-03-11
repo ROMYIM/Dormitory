@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.john_yim.dormitory.activity.student.StudentMainActivity">
+
+    <RelativeLayout
+        android:id="@+id/topBar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/reg_blue"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:id="@+id/titleText"
+            android:text="首页"
+            android:textSize="30dp"
+            android:textColor="@color/colorWhite"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"/>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/bottomBar"
+        android:background="@color/colorBottomBar">
+
+        <RadioGroup
+            android:id="@+id/sectionGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/mainSection"
+                android:drawableTop="@drawable/home_footer_main"
+                style="@style/home_style"
+                android:text="首页"/>
+
+            <RadioButton
+                android:id="@+id/noticeSection"
+                android:drawableTop="@drawable/home_footer_notices"
+                style="@style/home_style"
+                android:text="消息"/>
+
+            <RadioButton
+                android:id="@+id/groupSection"
+                android:drawableTop="@drawable/home_footer_group"
+                style="@style/home_style"
+                android:text="论坛"/>
+
+            <RadioButton
+                android:id="@+id/personalSection"
+                android:drawableTop="@drawable/home_footer_personal"
+                style="@style/home_style"
+                android:text="我的"/>
+
+        </RadioGroup>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:id="@+id/bottomLine"
+        android:layout_above="@id/bottomBar" />
+
+    <android.support.v4.view.ViewPager
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/bottomBar"
+        android:layout_below="@id/topBar"
+        android:id="@+id/viewPager">
+
+
+    </android.support.v4.view.ViewPager>
+
+</RelativeLayout>

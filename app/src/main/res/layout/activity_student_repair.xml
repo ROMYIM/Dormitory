@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.john_yim.dormitory.activity.student.StudentRepairActivity">
+
+    <RadioGroup
+        android:id="@+id/repairType"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:textSize="30dp"
+            android:text="电器"
+            android:id="@+id/repairElectricalType"/>
+
+        <RadioButton
+            android:id="@+id/repairWindowType"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:text="门窗"
+            android:textSize="30dp"/>
+
+        <RadioButton
+            android:id="@+id/repairWaterType"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:text="水器"
+            android:textSize="30dp"/>
+
+    </RadioGroup>
+
+    <ScrollView
+        android:id="@+id/repairContentScroll"
+        android:background="@drawable/editext_bg_focus"
+        android:layout_below="@id/repairType"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="350dp">
+
+        <EditText
+            android:inputType="textMultiLine"
+            android:id="@+id/repairContent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:lineSpacingExtra="3dp"
+            android:textSize="25dp"/>
+
+    </ScrollView>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/repairContentScroll"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="确认"
+        android:textSize="30dp"
+        android:id="@+id/repairBtn"/>
+
+</RelativeLayout>

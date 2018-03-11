@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <TextView
+        style="@style/DetailPlane"
+        android:id="@+id/repairPlaneId"
+        android:text="编号:"/>
+
+    <TextView
+        style="@style/DetailText"
+        android:layout_toRightOf="@id/repairPlaneId"
+        android:id="@+id/repairInfoId"/>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:id="@+id/centerLine3"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        style="@style/DetailPlane"
+        android:layout_marginLeft="0dp"
+        android:layout_toRightOf="@id/centerLine3"
+        android:id="@+id/repairPlaneSendDate"
+        android:text="日期:"/>
+
+    <TextView
+        style="@style/DetailText"
+        android:id="@+id/repairInfoSendDate"
+        android:layout_toRightOf="@id/repairPlaneSendDate" />
+
+    <TextView
+        style="@style/DetailPlane"
+        android:layout_below="@id/repairPlaneSendDate"
+        android:id="@+id/repairPlaneType"
+        android:text="类型:"/>
+
+    <TextView
+        style="@style/DetailText"
+        android:id="@+id/repairInfoType"
+        android:layout_toRightOf="@id/repairPlaneType"
+        android:layout_below="@id/repairPlaneSendDate"/>
+
+
+    <TextView
+        style="@style/DetailPlane"
+        android:layout_marginLeft="0dp"
+        android:id="@+id/repairPlaneStatus"
+        android:layout_below="@id/repairPlaneSendDate"
+        android:layout_toRightOf="@id/centerLine3"
+        android:text="状态:"/>
+
+    <TextView
+        style="@style/DetailText"
+        android:layout_toRightOf="@id/repairPlaneStatus"
+        android:layout_below="@id/repairPlaneSendDate"
+        android:id="@+id/repairInfoStatus"/>
+
+    <TextView
+        style="@style/DetailPlane"
+        android:layout_below="@id/repairPlaneType"
+        android:id="@+id/repairPlaneContent"
+        android:text="内容:"/>
+
+    <ScrollView
+        style="@style/ScrollStyle"
+        android:layout_below="@id/repairPlaneContent">
+
+        <TextView
+            style="@style/DetailContent"
+            android:id="@+id/repairInfoContent"/>
+
+    </ScrollView>
+
+</RelativeLayout>

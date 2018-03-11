@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.john_yim.dormitory.activity.dorAdmin.DorAdminNoticeActivity">
+
+    <TextView
+        style="@style/DetailPlane"
+        android:text="公告内容:"
+        android:id="@+id/noticeContentText"/>
+
+    <ScrollView
+        android:id="@+id/noticeScroll"
+        style="@style/ScrollStyle"
+        android:layout_height="370dp"
+        android:layout_marginBottom="20dp"
+        android:layout_below="@id/noticeContentText">
+
+        <EditText
+            android:id="@+id/noticeContent"
+            android:inputType="textMultiLine"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:lineSpacingExtra="3dp"
+            android:textSize="25dp"/>
+
+    </ScrollView>
+
+    <Button
+        android:id="@+id/noticeSendBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="发布"
+        android:textSize="30dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/noticeScroll"/>
+
+</RelativeLayout>

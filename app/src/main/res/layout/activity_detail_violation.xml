@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/violationInfo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            style="@style/DetailPlane"
+            android:id="@+id/violationPlaneId"
+            android:text="编号:"/>
+
+        <TextView
+            style="@style/DetailText"
+            android:layout_toRightOf="@id/violationPlaneId"
+            android:id="@+id/violationInfoId"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/centerLine4"/>
+
+        <TextView
+            style="@style/DetailPlane"
+            android:layout_toRightOf="@id/centerLine4"
+            android:text="日期:"
+            android:layout_marginLeft="0dp"
+            android:id="@+id/violationPlaneSendDate"/>
+
+        <TextView
+            style="@style/DetailText"
+            android:layout_toRightOf="@id/violationPlaneSendDate"
+            android:id="@+id/violationInfoSendDate"/>
+
+        <TextView
+            style="@style/DetailPlane"
+            android:text="类型:"
+            android:id="@+id/violationPlaneType"
+            android:layout_marginLeft="0dp"
+            android:layout_toRightOf="@id/centerLine4"
+            android:layout_below="@id/violationPlaneSendDate"/>
+
+        <TextView
+            style="@style/DetailText"
+            android:layout_toRightOf="@id/violationPlaneType"
+            android:layout_below="@id/violationPlaneId"
+            android:id="@+id/violationInfoType" />
+
+        <TextView
+            style="@style/DetailPlane"
+            android:layout_below="@id/violationPlaneId"
+            android:id="@+id/violationPlaneContent"
+            android:text="内容:"/>
+
+        <ScrollView
+            style="@style/ScrollStyle"
+            android:layout_below="@id/violationPlaneContent">
+
+            <TextView
+                style="@style/DetailContent"
+                android:id="@+id/violationInfoContent"/>
+        </ScrollView>
+
+    </RelativeLayout>
+
+</RelativeLayout>

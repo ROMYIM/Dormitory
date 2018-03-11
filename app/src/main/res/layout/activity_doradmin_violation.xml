@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.john_yim.dormitory.activity.dorAdmin.DorAdminViolationActivity">
+
+    <TextView
+        style="@style/DetailPlane"
+        android:layout_width="wrap_content"
+        android:id="@+id/violationStudentIdPlane"
+        android:layout_below="@id/repairPlaneSendDate"
+        android:layout_toRightOf="@id/centerLine3"
+        android:text="违纪学生:"/>
+
+    <TextView
+        style="@style/DetailPlane"
+        android:layout_below="@id/violationStudentIdPlane"
+        android:id="@+id/violationTypePlane"
+        android:text="类型:"/>
+
+    <EditText
+        android:background="@drawable/editext_bg_normal"
+        style="@style/DetailText"
+        android:inputType="number"
+        android:layout_width="170dp"
+        android:layout_marginLeft="15dp"
+        android:id="@+id/violationStudentId"
+        android:layout_toRightOf="@id/violationStudentIdPlane"
+        android:layout_below="@id/repairPlaneSendDate"/>
+
+    <Spinner
+        android:id="@+id/violationTypeSpinner"
+        android:background="@drawable/editext_bg_focus"
+        android:entries="@array/violation_type"
+        android:gravity="center"
+        android:layout_width="220dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="30dp"
+        android:layout_toRightOf="@id/violationTypePlane"
+        android:layout_below="@id/violationStudentId">
+
+
+    </Spinner>
+
+    <TextView
+        style="@style/DetailPlane"
+        android:layout_below="@id/violationTypePlane"
+        android:id="@+id/violationContentPlane"
+        android:text="内容:"/>
+
+    <ScrollView
+        android:id="@+id/violationScroll"
+        style="@style/ScrollStyle"
+        android:layout_height="270dp"
+        android:layout_below="@id/violationContentPlane">
+
+        <EditText
+            style="@style/DetailContent"
+            android:id="@+id/violationContent"
+            android:background="@null"
+            android:inputType="textMultiLine"/>
+
+    </ScrollView>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/sendViolationBtn"
+        android:layout_below="@id/violationScroll"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:textSize="20dp"
+        android:text="确认违纪"/>
+
+</RelativeLayout>

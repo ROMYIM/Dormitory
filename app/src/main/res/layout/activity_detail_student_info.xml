@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/titleBar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/reg_blue"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/activityTitle"
+            android:textSize="30dp"
+            android:textColor="@color/colorWhite"
+            android:layout_centerInParent="true"/>
+
+        <EditText
+            android:id="@+id/searchStudentId"
+            android:layout_width="250dp"
+            android:layout_height="40dp"
+            android:hint="请输入学号进行搜索"
+            android:background="@color/colorWhite"
+            android:layout_marginLeft="25dp"
+            android:layout_centerVertical="true"
+            android:inputType="number"/>
+
+        <Button
+            android:id="@+id/searchBtn"
+            android:text="搜索"
+            android:textSize="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/searchStudentId"
+            android:layout_marginLeft="10dp"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/studentInfoList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/titleBar">
+
+        <RelativeLayout
+            android:id="@+id/studentPersonalInfo"
+            android:paddingBottom="45dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/personalInfoTitle"
+                style="@style/PersonalInfoPlane"
+                android:text="个人信息"
+                android:textSize="25dp" />
+
+            <TextView
+                android:id="@+id/idPlane"
+                style="@style/PersonalInfoPlane"
+                android:layout_below="@id/personalInfoTitle"
+                android:text="学号:" />
+
+            <TextView
+                android:id="@+id/idText"
+                style="@style/PersonalInfoItem"
+                android:layout_below="@id/personalInfoTitle"
+                android:layout_toRightOf="@id/idPlane"
+                android:text="学号" />
+
+            <TextView
+                android:id="@+id/namePlane"
+                style="@style/PersonalInfoPlane"
+                android:layout_below="@id/idPlane"
+                android:text="姓名:" />
+
+            <TextView
+                android:id="@+id/nameText"
+                style="@style/PersonalInfoItem"
+                android:layout_below="@id/idText"
+                android:layout_toRightOf="@id/namePlane"
+                android:text="姓名" />
+
+            <TextView
+                android:id="@+id/genderPlane"
+                style="@style/PersonalInfoPlane"
+                android:layout_below="@id/namePlane"
+                android:text="性别:" />
+
+            <TextView
+                android:id="@+id/genderText"
+                style="@style/PersonalInfoItem"
+                android:layout_below="@id/nameText"
+                android:layout_toRightOf="@id/genderPlane"
+                android:text="性别" />
+
+            <View
+                android:id="@+id/centerLine"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_centerHorizontal="true" />
+
+            <TextView
+                android:id="@+id/gradePlane"
+                style="@style/PersonalInfoPlane"
+                android:layout_below="@id/personalInfoTitle"
+                android:layout_toRightOf="@id/centerLine"
+                android:text="年级:" />
+
+            <TextView
+                android:id="@+id/majorPlane"
+                style="@style/PersonalInfoPlane"
+                android:layout_below="@id/gradePlane"
+                android:layout_toRightOf="@id/centerLine"
+                android:text="专业:" />
+
+            <TextView
+                android:id="@+id/classPlane"
+                style="@style/PersonalInfoPlane"
+                android:layout_below="@id/majorPlane"
+                android:layout_toRightOf="@id/centerLine"
+                android:text="班级:" />
+
+            <TextView
+                android:id="@+id/gradeText"
+                style="@style/PersonalInfoItem"
+                android:layout_below="@id/personalInfoTitle"
+                android:layout_toRightOf="@id/gradePlane"
+                android:text="年级" />
+
+            <TextView
+                android:id="@+id/majorText"
+                style="@style/PersonalInfoItem"
+                android:layout_below="@id/gradeText"
+                android:layout_toRightOf="@id/majorPlane"
+                android:text="专业" />
+
+            <TextView
+                android:id="@+id/classText"
+                style="@style/PersonalInfoItem"
+                android:layout_below="@id/majorText"
+                android:layout_toRightOf="@id/classPlane"
+                android:text="班级" />
+
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/info_center_view"
+            android:layout_below="@id/studentPersonalInfo"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:background="@color/colorBottomBar"/>
+
+        <RelativeLayout
+            android:layout_below="@id/info_center_view"
+            android:paddingBottom="45dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <TextView
+                style="@style/PersonalInfoPlane"
+                android:text="宿舍信息"
+                android:textSize="25dp"
+                android:id="@+id/dormitoryInfoTitle"
+                android:layout_below="@+id/centerLine2"
+                android:layout_alignLeft="@+id/buildingPlane"
+                android:layout_alignStart="@+id/buildingPlane"
+                android:layout_marginTop="20dp" />
+
+            <TextView
+                style="@style/PersonalInfoPlane"
+                android:layout_below="@id/dormitoryInfoTitle"
+                android:text="宿舍楼:"
+                android:id="@+id/buildingPlane"/>
+
+            <TextView
+                style="@style/PersonalInfoItem"
+                android:layout_below="@id/dormitoryInfoTitle"
+                android:layout_toRightOf="@id/buildingPlane"
+                android:text=""
+                android:id="@+id/buildingText"/>
+
+            <TextView
+                style="@style/PersonalInfoPlane"
+                android:layout_below="@id/buildingPlane"
+                android:id="@+id/dorIdPlane"
+                android:text="宿舍号:"/>
+
+            <TextView
+                style="@style/PersonalInfoItem"
+                android:layout_below="@id/buildingText"
+                android:layout_toRightOf="@id/buildingPlane"
+                android:text=""
+                android:id="@+id/dorIdText"/>
+
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/centerLine2"/>
+
+            <TextView
+                style="@style/PersonalInfoPlane"
+                android:layout_below="@id/dormitoryInfoTitle"
+                android:layout_toRightOf="@id/centerLine2"
+                android:text="入宿时间:"
+                android:id="@+id/checkInPlane"/>
+
+
+            <TextView
+                style="@style/PersonalInfoPlane"
+                android:layout_toRightOf="@id/centerLine2"
+                android:layout_below="@id/checkInPlane"
+                android:text="违规次数:"
+                android:id="@+id/violationPlane"/>
+
+            <TextView
+                style="@style/PersonalInfoItem"
+                android:layout_below="@id/dormitoryInfoTitle"
+                android:layout_toRightOf="@id/checkInPlane"
+                android:id="@+id/checkInText"
+                android:text=""/>
+
+            <TextView
+                style="@style/PersonalInfoItem"
+                android:layout_below="@id/checkInText"
+                android:layout_toRightOf="@id/violationPlane"
+                android:id="@+id/violationText"
+                android:text="0"/>
+
+
+        </RelativeLayout>
+
+
+
+    </RelativeLayout>
+
+</RelativeLayout>

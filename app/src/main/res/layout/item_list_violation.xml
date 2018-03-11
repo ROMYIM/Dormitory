@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:id="@+id/violationId"
+        android:gravity="center_vertical"
+        android:text="violationId"
+        android:textSize="15dp"
+        android:paddingLeft="20dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textSize="15dp"
+            android:paddingLeft="20dp"
+            android:id="@+id/violationType"
+            android:gravity="center_vertical"
+            android:text="type" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:paddingLeft="20dp"
+            android:textSize="15dp"
+            android:text="sendDate"
+            android:id="@+id/violationSendDate"/>
+
+    </LinearLayout>
+
+    <TextView
+        style="@style/ListItemContent"
+        android:id="@+id/violationText"
+        android:text="违规详细内容"/>
+
+</LinearLayout>

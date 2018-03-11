@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/loginIdText"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginRight="50dp"
+        android:background="@drawable/editext_bg"
+        android:ems="10"
+        android:hint="请输入学号或工号"
+        android:inputType="number"
+        android:maxLength="15"
+        android:gravity="center"/>
+
+    <EditText
+        android:id="@+id/loginPasswordText"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/editext_bg"
+        android:ems="10"
+        android:hint="请输入密码"
+        android:inputType="textPassword"
+        android:layout_marginTop="46dp"
+        android:layout_below="@+id/loginIdText"
+        android:layout_alignLeft="@+id/loginIdText"
+        android:layout_alignStart="@+id/loginIdText"
+        android:layout_alignRight="@+id/loginIdText"
+        android:layout_alignEnd="@+id/loginIdText"
+        android:gravity="center"/>
+
+    <RadioGroup
+        android:id="@+id/loginAuthGroup"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="48dp"
+        android:layout_below="@+id/loginPasswordText"
+        android:layout_alignLeft="@+id/loginPasswordText"
+        android:layout_alignStart="@+id/loginPasswordText"
+        android:layout_alignRight="@+id/loginPasswordText"
+        android:layout_alignEnd="@+id/loginPasswordText" >
+
+        <RadioButton
+            android:id="@+id/studentRadioBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="学生" />
+
+        <RadioButton
+            android:id="@+id/dorAdminRadioBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="宿管" />
+
+        <RadioButton
+            android:id="@+id/adminRadioBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="系统管理员" />
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/loginBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="41dp"
+        android:background="@drawable/button_bg"
+        android:text="登录"
+        android:textColor="@color/colorWhite"
+        android:textSize="20dp"
+        android:layout_below="@+id/loginAuthGroup"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/registerLink"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/loginBtn"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="28dp"
+        android:text="前往注册"
+        android:autoLink="all"
+        android:textColor="@color/reg_blue"/>
+</RelativeLayout>

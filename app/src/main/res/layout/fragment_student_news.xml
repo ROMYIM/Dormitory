@@ -1,0 +1,34 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.john_yim.dormitory.fragment.student.StudentNewsFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        style="@style/ListPlane"
+        android:text="公告" />
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:id="@+id/noticeList">
+
+
+    </ListView>
+
+    <TextView
+        style="@style/ListPlane"
+        android:text="维修" />
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:id="@+id/repairList">
+
+    </ListView>
+
+</LinearLayout>
