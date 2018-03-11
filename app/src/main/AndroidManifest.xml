@@ -31,7 +31,8 @@
         <activity android:name=".activity.dorAdmin.DorAdminMainActivity" />
         <activity android:name=".activity.dorAdmin.DorAdminRegisterActivity" />
         <activity android:name=".activity.dorAdmin.DorAdminNoticeActivity" />
-        <activity android:name=".activity.dorAdmin.DorAdminViolationActivity"></activity>
+        <activity android:name=".activity.dorAdmin.DorAdminViolationActivity" />
+        <activity android:name=".activity.adminstrator.AdminRegisterActivity"></activity>
     </application>
 
 </manifest>
