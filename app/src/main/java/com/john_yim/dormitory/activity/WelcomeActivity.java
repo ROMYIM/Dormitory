@@ -15,6 +15,8 @@ import android.widget.Toast;
 
 import com.google.gson.reflect.TypeToken;
 import com.john_yim.dormitory.R;
+import com.john_yim.dormitory.activity.adminstrator.AdminMainActivity;
+import com.john_yim.dormitory.activity.adminstrator.AdminRegisterActivity;
 import com.john_yim.dormitory.activity.dorAdmin.DorAdminMainActivity;
 import com.john_yim.dormitory.activity.dorAdmin.DorAdminRegisterActivity;
 import com.john_yim.dormitory.activity.student.StudentMainActivity;
@@ -194,10 +196,13 @@ public class WelcomeActivity extends AppCompatActivity implements RadioGroup.OnC
                         Intent intent = new Intent();
                         switch (userTemp.getAuthentication()) {
                             case STUDENT:
-                                intent = new Intent(context, StudentMainActivity.class);
+                                intent.setClass(context, StudentMainActivity.class);
                                 break;
                             case DORMITORY_ADMINISTRATOR:
-                                intent = new Intent(context, DorAdminMainActivity.class);
+                                intent.setClass(context, DorAdminMainActivity.class);
+                                break;
+                            case ADMINISTRATOR:
+                                intent.setClass(context, AdminMainActivity.class);
                                 break;
                         }
                         startActivity(intent);
@@ -223,7 +228,8 @@ public class WelcomeActivity extends AppCompatActivity implements RadioGroup.OnC
                 startActivityForResult(intent, AcitivtyCode.WELCOME.ordinal());
                 break;
             case R.id.adminRadioBtn:
-
+                intent.setClass(context, AdminRegisterActivity.class);
+                startActivityForResult(intent, AcitivtyCode.WELCOME.ordinal());
                 break;
             default:
                 Toast.makeText(context, "请选择身份", Toast.LENGTH_SHORT).show();

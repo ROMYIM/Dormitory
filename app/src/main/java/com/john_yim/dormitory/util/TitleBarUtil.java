@@ -25,6 +25,11 @@ public class TitleBarUtil {
                 searchContent.setVisibility(View.VISIBLE);
                 searchBtn.setVisibility(View.VISIBLE);
                 break;
+            case ADMINISTRATOR:
+                title.setVisibility(View.INVISIBLE);
+                searchContent.setVisibility(View.VISIBLE);
+                searchBtn.setVisibility(View.VISIBLE);
+                break;
         }
     }
 }

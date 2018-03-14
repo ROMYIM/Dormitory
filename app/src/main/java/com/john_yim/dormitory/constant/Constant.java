@@ -37,4 +37,8 @@ public class Constant {
 
     public static final String ADMIN_LOGIN_URL = "/admin/login";
     public static final String ADMIN_REGISTER_URL = "/admin/register";
+    public static final String ADMIN_LOOK_STUDENTS_URL = "/admin/lookStudents";
+    public static final String ADMIN_LOOK_DORADMINS_URL ="/admin/lookDorAdmins";
+    public static final String ADMIN_LOOK_STUDENT_URL = "/admin/lookStudent/";
+    public static final String ADMIN_LOOK_DORADMIN_URL = "/admin/lookDorAdmin/";
 }

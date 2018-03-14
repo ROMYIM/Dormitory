@@ -36,4 +36,55 @@
         <item>滥用</item>
         <item>翻墙</item>
     </array>
+
+    <array name="floor">
+        <item>请选择楼层数</item>
+        <item>1楼</item>
+        <item>2楼</item>
+        <item>3楼</item>
+        <item>4楼</item>
+        <item>5楼</item>
+        <item>6楼</item>
+        <item>7楼</item>
+    </array>
+
+    <array name="room_id">
+        <item>请选择房间号</item>
+        <item>01号</item>
+        <item>02号</item>
+        <item>03号</item>
+        <item>04号</item>
+        <item>05号</item>
+        <item>06号</item>
+        <item>07号</item>
+        <item>08号</item>
+        <item>09号</item>
+        <item>10号</item>
+        <item>11号</item>
+        <item>12号</item>
+    </array>
+
+    <array name="building_num">
+        <item>请选择宿舍楼</item>
+        <item>01栋</item>
+        <item>02栋</item>
+        <item>03栋</item>
+        <item>04栋</item>
+        <item>05栋</item>
+        <item>06栋</item>
+        <item>07栋</item>
+        <item>08栋</item>
+        <item>09栋</item>
+        <item>10栋</item>
+        <item>11栋</item>
+        <item>12栋</item>
+        <item>13栋</item>
+        <item>14栋</item>
+        <item>15栋</item>
+        <item>16栋</item>
+        <item>17栋</item>
+        <item>18栋</item>
+        <item>19栋</item>
+        <item>25栋</item>
+    </array>
 </resources>

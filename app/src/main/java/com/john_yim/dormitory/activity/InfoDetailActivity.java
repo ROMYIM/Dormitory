@@ -9,6 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,6 +20,7 @@ import com.john_yim.dormitory.ViewAdapter;
 import com.john_yim.dormitory.constant.Authentication;
 import com.john_yim.dormitory.constant.Constant;
 import com.john_yim.dormitory.constant.EntityType;
+import com.john_yim.dormitory.entity.Building;
 import com.john_yim.dormitory.entity.Dormitory;
 import com.john_yim.dormitory.entity.Notice;
 import com.john_yim.dormitory.entity.Repair;
@@ -42,14 +44,28 @@ public class InfoDetailActivity extends AppCompatActivity implements View.OnClic
     private EditText searchContent;
     private PersistentCookieStore cookieStore;
     private String searchTarget;
+    private EntityType entityType;
+    private Authentication authentication;
+
+    private TextView idTextView;
+    private TextView nameTextView;
+    private TextView genderTextView;
+    private TextView gradeTextView;
+    private TextView majorTextView;
+    private TextView classTextView;
+    private EditText buildingNum;
+    private EditText roomNum;
+    private EditText floorNum;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context = InfoDetailActivity.this;
+        TextView title;
+        Button searchBtn;
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
-        Authentication authentication = (Authentication) bundle.getSerializable("auth");
+        authentication = (Authentication) bundle.getSerializable("auth");
         switch (authentication) {
             case STUDENT:
                 EntityType type = (EntityType) bundle.getSerializable("entity");
@@ -78,12 +94,24 @@ public class InfoDetailActivity extends AppCompatActivity implements View.OnClic
                 } else if (searchTarget.equals("dormitory")) {
                     setContentView(R.layout.activity_detail_dormitory);
                 }
-                TextView title = (TextView) findViewById(R.id.activityTitle);
-                Button searchBtn = (Button) findViewById(R.id.searchBtn);
+                title = (TextView) findViewById(R.id.activityTitle);
+                searchBtn = (Button) findViewById(R.id.searchBtn);
                 searchContent = (EditText) findViewById(R.id.searchStudentId);
                 TitleBarUtil.setActivityTitleBar(authentication, title, searchContent, searchBtn);
                 searchBtn.setOnClickListener(this);
                 break;
+            case ADMINISTRATOR:
+                entityType = (EntityType) bundle.getSerializable("entity");
+                if (entityType == EntityType.STUDENT) {
+                    setContentView(R.layout.activity_edit_student);
+                    RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.studentInfoList);
+                    relativeLayout.setVisibility(View.INVISIBLE);
+                }
+                title = (TextView) findViewById(R.id.activityTitle);
+                searchBtn = (Button) findViewById(R.id.searchBtn);
+                searchContent = (EditText) findViewById(R.id.searchStudentId);
+                TitleBarUtil.setActivityTitleBar(authentication, title, searchContent, searchBtn);
+                searchBtn.setOnClickListener(this);
         }
 
     }
@@ -121,41 +149,75 @@ public class InfoDetailActivity extends AppCompatActivity implements View.OnClic
         contentText.setText(violation.getContent());
     }
 
-    private void bindStudentInfoView(Student student) {
-        TextView idTextView = (TextView) findViewById(R.id.idText);
-        TextView nameTextView = (TextView) findViewById(R.id.nameText);
-        TextView genderTextView = (TextView) findViewById(R.id.genderText);
-        TextView gradeTextView = (TextView) findViewById(R.id.gradeText);
-        TextView majorTextView = (TextView) findViewById(R.id.majorText);
-        TextView classTextView = (TextView) findViewById(R.id.classText);
-        TextView buildingTextView = (TextView) findViewById(R.id.buildingText);
-        TextView dorIdTextView = (TextView) findViewById(R.id.dorIdText);
-        TextView checkInTextView = (TextView) findViewById(R.id.checkInText);
-        idTextView.setText(student.getId());
+    private void bindStudentInfoView(Student student, Authentication authentication) {
+        idTextView = (TextView) findViewById(R.id.idText);
+        nameTextView = (TextView) findViewById(R.id.nameText);
+        genderTextView = (TextView) findViewById(R.id.genderText);
+        gradeTextView = (TextView) findViewById(R.id.gradeText);
+        majorTextView = (TextView) findViewById(R.id.majorText);
+        classTextView = (TextView) findViewById(R.id.classText);
         nameTextView.setText(student.getName());
         genderTextView.setText(student.getGender().name());
         gradeTextView.setText(String.valueOf(student.getGrade()));
         majorTextView.setText(student.getMajor());
         classTextView.setText(String.valueOf(student.getClassNum()));
-        Dormitory dormitory = student.getDormitory();
-        if (dormitory != null) {
-            buildingTextView.setText(String.valueOf(dormitory.getBuilding().getBuildingNum()));
-            dorIdTextView.setText(dormitory.getLongId());
-            checkInTextView.setText(DateUtil.dateToString("yyyy-MM-dd", student.getCheckInDate()));
+        if (authentication != Authentication.ADMINISTRATOR) {
+            TextView buildingTextView = (TextView) findViewById(R.id.buildingText);
+            TextView dorIdTextView = (TextView) findViewById(R.id.dorIdText);
+            TextView checkInTextView = (TextView) findViewById(R.id.checkInText);
+            idTextView.setText(student.getId());
+            Dormitory dormitory = student.getDormitory();
+            if (dormitory != null) {
+                buildingTextView.setText(String.valueOf(dormitory.getBuilding().getBuildingNum()));
+                dorIdTextView.setText(dormitory.getLongId());
+                checkInTextView.setText(DateUtil.dateToString("yyyy-MM-dd", student.getCheckInDate()));
+            }
+        } else {
+            buildingNum = (EditText) findViewById(R.id.buildingEdit);
+            roomNum = (EditText) findViewById(R.id.roomText);
+            floorNum = (EditText) findViewById(R.id.floorText);
+            Dormitory dormitory = student.getDormitory();
+            if (dormitory != null) {
+                buildingNum.setText(dormitory.getBuilding().getBuildingNum());
+                roomNum.setText(dormitory.getId());
+                floorNum.setText(dormitory.getFloor());
+            }
         }
     }
 
     @Override
     public void onClick(View view) {
         cookieStore = new PersistentCookieStore(context);
-        if (searchTarget.equals("student")) {
-            String studentId = searchContent.getText().toString();
-            HttpUtil.asyncGet(Constant.DORADMIN_LOOK_STUDENT_URL + studentId, null,
-                    new StudentInfoResponseHandler(), cookieStore);
-        } else if (searchTarget.equals("dormitory")) {
-            String studentId = searchContent.getText().toString();
-            HttpUtil.asyncGet(Constant.DORADMIN_LOOK_DORMITORY_URL + studentId, null,
-                    new DormitoryInfoResponseHandler(), cookieStore);
+        switch (view.getId()) {
+            case R.id.searchBtn:
+                if (searchTarget != null) {
+                    if (searchTarget.equals("student")) {
+                        String studentId = searchContent.getText().toString();
+                        HttpUtil.asyncGet(Constant.DORADMIN_LOOK_STUDENT_URL + studentId, null,
+                                new StudentInfoResponseHandler(), cookieStore);
+                    } else if (searchTarget.equals("dormitory")) {
+                        String studentId = searchContent.getText().toString();
+                        HttpUtil.asyncGet(Constant.DORADMIN_LOOK_DORMITORY_URL + studentId, null,
+                                new DormitoryInfoResponseHandler(), cookieStore);
+                    }
+                }
+                if (entityType != null) {
+                    if (entityType == EntityType.STUDENT) {
+                        String studentId = searchContent.getText().toString();
+                        HttpUtil.asyncGet(Constant.ADMIN_LOOK_STUDENT_URL + studentId, null,
+                                new StudentInfoResponseHandler(), cookieStore);
+                    }
+                }
+                break;
+            case R.id.confirmBtn:
+                if (entityType == EntityType.STUDENT) {
+                    Building building = new Building();
+                    building.setBuildingNum(Integer.valueOf(buildingNum.getText().toString()));
+                    Dormitory dormitory = new Dormitory(Integer.parseInt(roomNum.getText().toString()),
+                            building, Integer.parseInt(floorNum.getText().toString()));
+                    Student student = new Student();
+                    student.setDormitory(dormitory);
+                }
         }
     }
 
@@ -214,7 +276,7 @@ public class InfoDetailActivity extends AppCompatActivity implements View.OnClic
                     ResponseResult<Student> result = ResponseUtil.getResult(s,
                             new TypeToken<ResponseResult<Student>>(){}.getType());
                     Student student = result.getResult();
-                    bindStudentInfoView(student);
+                    bindStudentInfoView(student, authentication);
                 } catch (JsonParseException e) {
                     ResponseResult<String> result = ResponseUtil.getResult(s,
                             new TypeToken<ResponseResult<String>>(){}.getType());

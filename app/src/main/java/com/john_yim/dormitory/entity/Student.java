@@ -104,6 +104,14 @@ public class Student extends User {
         propertyMap.put("classNum", String.valueOf(classNum));
         propertyMap.put("checkInDate", DateUtil.dateToString("yyyy-MM-dd", checkInDate));
         propertyMap.put("moveDate", DateUtil.dateToString("yyyy-MM-dd", moveDate));
+        if (dormitory != null) {
+            propertyMap.put("dormitoryId", dormitory.getDormitoryId());
+            propertyMap.put("id", String.valueOf(dormitory.getId()));
+            propertyMap.put("floor", String.valueOf(dormitory.getFloor()));
+            propertyMap.put("buildingNum", String.valueOf(dormitory.getBuilding().getBuildingNum()));
+            propertyMap.put("eBills", String.valueOf(dormitory.getEbills()));
+            propertyMap.put("wBills", String.valueOf(dormitory.getWbills()));
+        }
         return propertyMap;
     }
 }

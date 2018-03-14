@@ -17,6 +17,17 @@ public class Dormitory implements Serializable {
     private List<Student> students;
     private List<Repair> repairInformations;
 
+    public Dormitory() {}
+
+    public Dormitory(Integer id, Building building, Integer floor) {
+        setId(id);
+        setBuilding(building);
+        setFloor(floor);
+        setEbills(0.0F);
+        setWbills(0.0F);
+        dormitoryId = "" + building.getBuildingNum() + floor + id;
+    }
+
     public void setBuilding(Building building) {
         this.building = building;
     }

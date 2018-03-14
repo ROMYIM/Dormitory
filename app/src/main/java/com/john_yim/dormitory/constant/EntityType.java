@@ -7,5 +7,5 @@ import java.io.Serializable;
  */
 
 public enum EntityType implements Serializable {
-    BILL, NOTICE, REPAIR, VIOLATION;
+    BILL, NOTICE, REPAIR, VIOLATION, STUDENT, DORMITORY_ADMIN;
 }

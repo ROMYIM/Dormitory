@@ -23,9 +23,11 @@ import com.john_yim.dormitory.constant.Constant;
 import com.john_yim.dormitory.constant.EntityType;
 import com.john_yim.dormitory.constant.ResultType;
 import com.john_yim.dormitory.entity.Bill;
+import com.john_yim.dormitory.entity.DorAdmin;
 import com.john_yim.dormitory.entity.Notice;
 import com.john_yim.dormitory.entity.Repair;
 import com.john_yim.dormitory.entity.ResponseResult;
+import com.john_yim.dormitory.entity.Student;
 import com.john_yim.dormitory.entity.Violation;
 import com.john_yim.dormitory.util.DateUtil;
 import com.john_yim.dormitory.util.HttpUtil;
@@ -104,6 +106,15 @@ public class ListActivity extends AppCompatActivity implements AdapterView.OnIte
                     searchBtn.setOnClickListener(this);
                 }
                 break;
+            case STUDENT:
+                if (authentication == Authentication.ADMINISTRATOR) {
+                    getInformation(Constant.ADMIN_LOOK_STUDENTS_URL, new StudentResponseHandler(), null);
+                }
+                break;
+            case DORMITORY_ADMIN:
+                if (authentication == Authentication.ADMINISTRATOR) {
+                    getInformation(Constant.ADMIN_LOOK_DORADMINS_URL, new DorAdminResponseHandler(), null);
+                }
         }
         listView.setOnItemClickListener(this);
     }
@@ -152,9 +163,15 @@ public class ListActivity extends AppCompatActivity implements AdapterView.OnIte
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.searchBtn:
-                paramMap.put("studentId", searchContent.getText().toString());
-                ViolationResponseHandler violationInfoResponseHandler = new ViolationResponseHandler();
-                getInformation(Constant.DORADMIN_LOOK_VIOLATIONS_URL, violationInfoResponseHandler, paramMap);
+                if (type == EntityType.VIOLATION) {
+                    paramMap.put("studentId", searchContent.getText().toString());
+                    ViolationResponseHandler violationInfoResponseHandler = new ViolationResponseHandler();
+                    getInformation(Constant.DORADMIN_LOOK_VIOLATIONS_URL, violationInfoResponseHandler, paramMap);
+                } else if (type == EntityType.STUDENT) {
+
+                } else if (type == EntityType.DORMITORY_ADMIN) {
+
+                }
                 break;
         }
     }
@@ -316,6 +333,64 @@ public class ListActivity extends AppCompatActivity implements AdapterView.OnIte
                         Intent intent = new Intent(context, WelcomeActivity.class);
                         startActivity(intent);
                     }
+                    Toast.makeText(context, result.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
+    }
+
+    private class StudentResponseHandler extends TextHttpResponseHandler {
+
+        @Override
+        public void onFailure(int i, Header[] headers, String s, Throwable throwable) {
+            Toast.makeText(context, "获取学生列表失败", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onSuccess(int i, Header[] headers, String s) {
+            if (i == 200) {
+                try {
+                    ResponseResult<List<Student>> result = ResponseUtil.getResult(s,
+                            new TypeToken<ResponseResult<List<Student>>>(){}.getType());
+                    viewAdapter = new ViewAdapter<Student>(result.getResult(), R.layout.item_list_student) {
+                        @Override
+                        public void bindView(ViewHolder holder, Student obj) {
+                            holder.setText(R.id.studentPlane, obj.getId());
+                        }
+                    };
+                    listView.setAdapter(viewAdapter);
+                } catch (JsonParseException e) {
+                    ResponseResult<String> result = ResponseUtil.getResult(s,
+                            new TypeToken<ResponseResult<String>>(){}.getType());
+                    Toast.makeText(context, result.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
+    }
+
+    private class DorAdminResponseHandler extends TextHttpResponseHandler {
+
+        @Override
+        public void onFailure(int i, Header[] headers, String s, Throwable throwable) {
+            Toast.makeText(context, "查询失败", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onSuccess(int i, Header[] headers, String s) {
+            if (i == 200) {
+                try {
+                    ResponseResult<List<DorAdmin>> result = ResponseUtil.getResult(s,
+                            new TypeToken<ResponseResult<List<DorAdmin>>>(){}.getType());
+                    viewAdapter = new ViewAdapter<DorAdmin>(result.getResult(), R.layout.item_list_doradmin) {
+                        @Override
+                        public void bindView(ViewHolder holder, DorAdmin obj) {
+                            holder.setText(R.id.dorAdminPlane, obj.getId());
+                        }
+                    };
+                    listView.setAdapter(viewAdapter);
+                } catch (JsonParseException e) {
+                    ResponseResult<String> result = ResponseUtil.getResult(s,
+                            new TypeToken<ResponseResult<String>>(){}.getType());
                     Toast.makeText(context, result.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
