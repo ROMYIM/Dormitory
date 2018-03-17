@@ -5,11 +5,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,7 +22,7 @@ import com.john_yim.dormitory.ViewAdapter;
 import com.john_yim.dormitory.constant.Authentication;
 import com.john_yim.dormitory.constant.Constant;
 import com.john_yim.dormitory.constant.EntityType;
-import com.john_yim.dormitory.entity.Building;
+import com.john_yim.dormitory.constant.ResultType;
 import com.john_yim.dormitory.entity.Dormitory;
 import com.john_yim.dormitory.entity.Notice;
 import com.john_yim.dormitory.entity.Repair;
@@ -32,13 +34,15 @@ import com.john_yim.dormitory.util.HttpUtil;
 import com.john_yim.dormitory.util.ResponseUtil;
 import com.john_yim.dormitory.util.TitleBarUtil;
 import com.loopj.android.http.PersistentCookieStore;
+import com.loopj.android.http.RequestParams;
 import com.loopj.android.http.TextHttpResponseHandler;
 
 import org.apache.http.Header;
 
 import java.util.List;
 
-public class InfoDetailActivity extends AppCompatActivity implements View.OnClickListener{
+public class InfoDetailActivity extends AppCompatActivity implements View.OnClickListener,
+        AdapterView.OnItemSelectedListener {
 
     private Context context;
     private EditText searchContent;
@@ -46,16 +50,23 @@ public class InfoDetailActivity extends AppCompatActivity implements View.OnClic
     private String searchTarget;
     private EntityType entityType;
     private Authentication authentication;
+    private String function;
 
+    private String buildingNumStr;
+    private String floorStr;
+    private String roomStr;
+
+    private RelativeLayout studentInfo;
     private TextView idTextView;
     private TextView nameTextView;
     private TextView genderTextView;
     private TextView gradeTextView;
     private TextView majorTextView;
     private TextView classTextView;
-    private EditText buildingNum;
-    private EditText roomNum;
-    private EditText floorNum;
+    private Spinner buildingNum;
+    private Spinner roomNum;
+    private Spinner floorNum;
+    private Button confimBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,11 +112,33 @@ public class InfoDetailActivity extends AppCompatActivity implements View.OnClic
                 searchBtn.setOnClickListener(this);
                 break;
             case ADMINISTRATOR:
-                entityType = (EntityType) bundle.getSerializable("entity");
-                if (entityType == EntityType.STUDENT) {
-                    setContentView(R.layout.activity_edit_student);
-                    RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.studentInfoList);
-                    relativeLayout.setVisibility(View.INVISIBLE);
+                function = bundle.getString("function");
+                if (function.equals("search")) {
+                    entityType = (EntityType) bundle.getSerializable("entity");
+                    if (entityType == EntityType.STUDENT) {
+                        setContentView(R.layout.activity_detail_student_info);
+                        studentInfo = (RelativeLayout) findViewById(R.id.studentInfoList);
+                        studentInfo.setVisibility(View.INVISIBLE);
+                    } else if (entityType == EntityType.DORMITORY_ADMIN) {
+                        setContentView(R.layout.activity_detail_dormitory);
+                    }
+                } else if (function.equals("edit")) {
+                    entityType = (EntityType) bundle.getSerializable("entity");
+                    if (entityType == EntityType.STUDENT) {
+                        setContentView(R.layout.activity_edit_student);
+                        studentInfo = (RelativeLayout) findViewById(R.id.studentInfoList);
+                        studentInfo.setVisibility(View.INVISIBLE);
+                        buildingNum = (Spinner) findViewById(R.id.buildingEdit);
+                        floorNum = (Spinner) findViewById(R.id.floorEdit);
+                        roomNum = (Spinner) findViewById(R.id.roomEdit);
+                        buildingNum.setOnItemSelectedListener(this);
+                        floorNum.setOnItemSelectedListener(this);
+                        roomNum.setOnItemSelectedListener(this);
+                    } else if (entityType == EntityType.DORMITORY_ADMIN) {
+
+                    }
+                    confimBtn = (Button) findViewById(R.id.confirmBtn);
+                    confimBtn.setOnClickListener(this);
                 }
                 title = (TextView) findViewById(R.id.activityTitle);
                 searchBtn = (Button) findViewById(R.id.searchBtn);
@@ -149,39 +182,32 @@ public class InfoDetailActivity extends AppCompatActivity implements View.OnClic
         contentText.setText(violation.getContent());
     }
 
-    private void bindStudentInfoView(Student student, Authentication authentication) {
+    private void bindStudentInfoView(Student student) {
         idTextView = (TextView) findViewById(R.id.idText);
         nameTextView = (TextView) findViewById(R.id.nameText);
         genderTextView = (TextView) findViewById(R.id.genderText);
         gradeTextView = (TextView) findViewById(R.id.gradeText);
         majorTextView = (TextView) findViewById(R.id.majorText);
         classTextView = (TextView) findViewById(R.id.classText);
+        idTextView.setText(student.getId());
         nameTextView.setText(student.getName());
-        genderTextView.setText(student.getGender().name());
+        genderTextView.setText(student.getGender().getValue());
         gradeTextView.setText(String.valueOf(student.getGrade()));
         majorTextView.setText(student.getMajor());
         classTextView.setText(String.valueOf(student.getClassNum()));
-        if (authentication != Authentication.ADMINISTRATOR) {
+        if (function.equals("search")) {
             TextView buildingTextView = (TextView) findViewById(R.id.buildingText);
             TextView dorIdTextView = (TextView) findViewById(R.id.dorIdText);
             TextView checkInTextView = (TextView) findViewById(R.id.checkInText);
-            idTextView.setText(student.getId());
             Dormitory dormitory = student.getDormitory();
             if (dormitory != null) {
                 buildingTextView.setText(String.valueOf(dormitory.getBuilding().getBuildingNum()));
                 dorIdTextView.setText(dormitory.getLongId());
                 checkInTextView.setText(DateUtil.dateToString("yyyy-MM-dd", student.getCheckInDate()));
             }
-        } else {
-            buildingNum = (EditText) findViewById(R.id.buildingEdit);
-            roomNum = (EditText) findViewById(R.id.roomText);
-            floorNum = (EditText) findViewById(R.id.floorText);
-            Dormitory dormitory = student.getDormitory();
-            if (dormitory != null) {
-                buildingNum.setText(dormitory.getBuilding().getBuildingNum());
-                roomNum.setText(dormitory.getId());
-                floorNum.setText(dormitory.getFloor());
-            }
+            studentInfo.setVisibility(View.VISIBLE);
+        } else if (function.equals("edit")) {
+            studentInfo.setVisibility(View.VISIBLE);
         }
     }
 
@@ -211,13 +237,20 @@ public class InfoDetailActivity extends AppCompatActivity implements View.OnClic
                 break;
             case R.id.confirmBtn:
                 if (entityType == EntityType.STUDENT) {
-                    Building building = new Building();
-                    building.setBuildingNum(Integer.valueOf(buildingNum.getText().toString()));
-                    Dormitory dormitory = new Dormitory(Integer.parseInt(roomNum.getText().toString()),
-                            building, Integer.parseInt(floorNum.getText().toString()));
-                    Student student = new Student();
-                    student.setDormitory(dormitory);
+                    String studentId = idTextView.getText().toString();
+                    if (buildingNumStr == null || floorStr == null || roomStr == null) {
+                        Toast.makeText(context, "请完善宿舍信息", Toast.LENGTH_SHORT).show();
+                        return;
+                    } else {
+                        String dormitoryId = buildingNumStr + floorStr + roomStr;
+                        RequestParams params = new RequestParams();
+                        params.put("studentId", studentId);
+                        params.put("dormitoryId", dormitoryId);
+                        HttpUtil.asyncPost(Constant.ADMIN_ENTER_DORMITORY_URL, params,
+                                new EnterDormitoryResponseHandler(), cookieStore);
+                    }
                 }
+                break;
         }
     }
 
@@ -262,6 +295,28 @@ public class InfoDetailActivity extends AppCompatActivity implements View.OnClic
         }
     }
 
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        if (i == 0)
+            return;
+        switch (adapterView.getId()) {
+            case R.id.buildingEdit:
+                buildingNumStr = adapterView.getItemAtPosition(i).toString().substring(0, 2);
+                break;
+            case R.id.floorEdit:
+                floorStr = String.valueOf(i);
+                break;
+            case R.id.roomEdit:
+                roomStr = adapterView.getItemAtPosition(i).toString().substring(0, 2);
+                break;
+        }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
+    }
+
     private class StudentInfoResponseHandler extends TextHttpResponseHandler {
 
         @Override
@@ -276,7 +331,7 @@ public class InfoDetailActivity extends AppCompatActivity implements View.OnClic
                     ResponseResult<Student> result = ResponseUtil.getResult(s,
                             new TypeToken<ResponseResult<Student>>(){}.getType());
                     Student student = result.getResult();
-                    bindStudentInfoView(student, authentication);
+                    bindStudentInfoView(student);
                 } catch (JsonParseException e) {
                     ResponseResult<String> result = ResponseUtil.getResult(s,
                             new TypeToken<ResponseResult<String>>(){}.getType());
@@ -321,6 +376,26 @@ public class InfoDetailActivity extends AppCompatActivity implements View.OnClic
         public void onSuccess(int i, Header[] headers, String s) {
             if (i == 200) {
 
+            }
+        }
+    }
+
+    private class EnterDormitoryResponseHandler extends TextHttpResponseHandler {
+
+        @Override
+        public void onFailure(int i, Header[] headers, String s, Throwable throwable) {
+            Toast.makeText(context, "入宿操作失败", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onSuccess(int i, Header[] headers, String s) {
+            if (i == 200) {
+                ResponseResult<String> result = ResponseUtil.getResult(s,
+                        new TypeToken<ResponseResult<String>>(){}.getType());
+                Toast.makeText(context, result.getMessage(), Toast.LENGTH_SHORT).show();
+                if (result.getCode() == ResultType.SUCCESS.getCode()) {
+                    finish();
+                }
             }
         }
     }

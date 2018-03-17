@@ -35,6 +35,8 @@ public class AdminMainActivity extends AppCompatActivity implements AdapterView.
         gridItems = new ArrayList<>(9);
         gridItems.add(new GridItem(R.mipmap.student_info, "查看学生"));
         gridItems.add(new GridItem(R.mipmap.student_info, "查看宿管"));
+        gridItems.add(new GridItem(R.mipmap.student_info, "学生入宿"));
+        gridItems.add(new GridItem(R.mipmap.student_info, "宿管管理"));
         viewAdapter = new ViewAdapter<GridItem>(gridItems, R.layout.item_grid_home) {
             @Override
             public void bindView(ViewHolder holder, GridItem obj) {
@@ -53,13 +55,26 @@ public class AdminMainActivity extends AppCompatActivity implements AdapterView.
         Intent intent = new Intent();
         switch (i) {
             case 0:
+                bundle.putString("function", "search");
                 bundle.putSerializable("entity", EntityType.STUDENT);
                 intent.setClass(context, InfoDetailActivity.class);
                 break;
             case 1:
+                bundle.putString("function", "search");
                 bundle.putSerializable("entity", EntityType.DORMITORY_ADMIN);
                 intent.setClass(context, InfoDetailActivity.class);
                 break;
+            case 2:
+                bundle.putString("function", "edit");
+                bundle.putSerializable("entity", EntityType.STUDENT);
+                intent.setClass(context, InfoDetailActivity.class);
+                break;
+            case 3:
+                bundle.putString("function", "edit");
+                bundle.putSerializable("entity", EntityType.DORMITORY_ADMIN);
+                intent.setClass(context, InfoDetailActivity.class);
+                break;
+
         }
         intent.putExtras(bundle);
         startActivity(intent);

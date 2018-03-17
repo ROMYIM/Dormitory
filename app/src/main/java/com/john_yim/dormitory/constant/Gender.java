@@ -5,5 +5,13 @@ package com.john_yim.dormitory.constant;
  */
 
 public enum Gender {
-    MALE, FEMALE;
+    MALE("男"), FEMALE("女");
+    private String value;
+    Gender(String value) {
+        this.value = value;
+    }
+
+    public String getValue() {
+        return value;
+    }
 }

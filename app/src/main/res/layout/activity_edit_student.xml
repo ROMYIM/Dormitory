@@ -188,9 +188,9 @@
                 android:text="宿舍楼:"
                 android:id="@+id/buildingPlane"/>
 
-            <EditText
+            <Spinner
                 style="@style/SpinnerStyle"
-                android:hint="请选择宿舍楼"
+                android:entries="@array/building_num"
                 android:layout_below="@id/dormitoryInfoTitle"
                 android:layout_toRightOf="@id/buildingPlane"
                 android:text=""
@@ -203,13 +203,13 @@
                 android:id="@+id/dorIdPlane"
                 android:text="宿舍号:"/>
 
-            <EditText
+            <Spinner
                 style="@style/SpinnerStyle"
-                android:hint="请选择房间号"
+                android:entries="@array/room_id"
                 android:layout_below="@id/buildingEdit"
                 android:layout_toRightOf="@id/buildingPlane"
                 android:text=""
-                android:id="@+id/roomText"/>
+                android:id="@+id/roomEdit"/>
 
 
             <View
@@ -225,11 +225,11 @@
                 android:text="楼层数:"
                 android:id="@+id/floorPlane"/>
 
-            <EditText
+            <Spinner
                 style="@style/SpinnerStyle"
-                android:hint="请选择楼层数"
-                android:id="@+id/floorText"
-                android:layout_below="@id/roomText"
+                android:entries="@array/floor"
+                android:id="@+id/floorEdit"
+                android:layout_below="@id/roomEdit"
                 android:layout_toRightOf="@id/floorPlane"/>
 
             <Button
